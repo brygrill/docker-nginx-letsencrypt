@@ -1,0 +1,47 @@
+# Plata API Image
+plata-api:
+    image: plata_api
+    container_name: plata-api
+    restart: always
+    ports:
+        - "127.0.0.1:3001:3001"
+
+# Plata App Image
+plata-app:
+    image: plata_app
+    container_name: plata-app
+    restart: always
+    ports:
+        - "127.0.0.1:3000:3000"
+
+# Nginx serving API and App
+plata-nginx:
+    build: ./nginx
+    links:
+        - plata-api
+        - plata-app
+    ports:
+        - "80:80"
+        - "443:443"
+    volumes_from:
+      - plata-nginx-err-log
+      - plata-nginx-access-log
+      - letsencrypt-data
+    restart: always
+    container_name: plata-nginx
+
+# Data container volume for error logs
+plata-nginx-err-log:
+    image: ubuntu
+    container_name: plata-nginx-err-log
+    volumes:
+      - plata-nginx-err-log:/var/log/nginx/error
+    command: /bin/bash
+
+# Data container volume for access logs
+plata-nginx-access-log:
+    image: ubuntu
+    container_name: plata-nginx-access-log
+    volumes:
+      - plata-nginx-access-log:/var/log/nginx/access
+    command: /bin/bash
