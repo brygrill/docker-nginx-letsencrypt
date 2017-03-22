@@ -1,25 +1,26 @@
-# Plata API Image
-plata-api:
-    image: plata_api
-    container_name: plata-api
+# The first app
+# pulled from image or could be built
+app1:
+    image: app1
+    container_name: app1
     restart: always
     ports:
         - "127.0.0.1:3001:3001"
 
-# Plata App Image
-plata-app:
-    image: plata_app
-    container_name: plata-app
+# A second app
+app2:
+    image: app2
+    container_name: app2
     restart: always
     ports:
         - "127.0.0.1:3000:3000"
 
-# Nginx serving API and App
+# Nginx serving Apps
 plata-nginx:
     build: ./nginx
     links:
-        - plata-api
-        - plata-app
+        - app1
+        - app2
     ports:
         - "80:80"
         - "443:443"

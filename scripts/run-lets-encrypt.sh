@@ -6,8 +6,8 @@ docker run \
   --rm \
   --volumes-from letsencrypt-data \
   quay.io/letsencrypt/letsencrypt certonly \
-  --domain plata.cool \
-  --domain graphql.plata.cool \
+  --domain $APP1 \
+  --domain $APP2 \
   --authenticator webroot \
   --webroot-path /etc/letsencrypt/webrootauth/ \
   --email $EMAIL \
