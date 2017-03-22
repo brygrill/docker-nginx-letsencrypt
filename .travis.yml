@@ -1,0 +1,11 @@
+sudo: required
+
+services:
+  - docker
+
+install:
+  - docker build -t nginx-test ./nginx
+  - docker run -d -p 127.0.0.1:80:80 --name nginx-test nginx-test
+
+script:
+  - docker ps | grep -q nginx-test
