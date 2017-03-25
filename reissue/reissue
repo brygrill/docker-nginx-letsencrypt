@@ -6,13 +6,13 @@ docker run \
   --rm \
   --volumes-from letsencrypt-data \
   quay.io/letsencrypt/letsencrypt certonly \
-  --domain plata.cool \
-  --domain graphql.plata.cool \
+  --domain example.com \
+  --domain sub.example.com \
   --authenticator webroot \
   --webroot-path /etc/letsencrypt/webrootauth/ \
-  --email grillb@gmail.com \
+  --email $1 \
   --renew-by-default \
   --agree-tos
 
 # Send NGINX a SIGHUP to trigger it to reload its configuration without shutting down.
-docker kill --signal=HUP plata-nginx
+docker kill --signal=HUP nginx

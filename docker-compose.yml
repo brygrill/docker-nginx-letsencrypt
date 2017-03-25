@@ -16,7 +16,7 @@ app2:
         - "127.0.0.1:3000:3000"
 
 # Nginx serving Apps
-plata-nginx:
+nginx:
     build: ./nginx
     links:
         - app1
@@ -25,24 +25,24 @@ plata-nginx:
         - "80:80"
         - "443:443"
     volumes_from:
-      - plata-nginx-err-log
-      - plata-nginx-access-log
+      - nginx-err-log
+      - nginx-access-log
       - letsencrypt-data
     restart: always
-    container_name: plata-nginx
+    container_name: nginx
 
 # Data container volume for error logs
-plata-nginx-err-log:
+nginx-err-log:
     image: ubuntu
-    container_name: plata-nginx-err-log
+    container_name: nginx-err-log
     volumes:
-      - plata-nginx-err-log:/var/log/nginx/error
+      - nginx-err-log:/var/log/nginx/error
     command: /bin/bash
 
 # Data container volume for access logs
-plata-nginx-access-log:
+nginx-access-log:
     image: ubuntu
-    container_name: plata-nginx-access-log
+    container_name: nginx-access-log
     volumes:
-      - plata-nginx-access-log:/var/log/nginx/access
+      - nginx-access-log:/var/log/nginx/access
     command: /bin/bash

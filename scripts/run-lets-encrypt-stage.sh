@@ -10,8 +10,8 @@ docker run \
   --publish 80:80 \
   quay.io/letsencrypt/letsencrypt certonly \
   --server https://acme-staging.api.letsencrypt.org/directory \
-  --domain plata.cool \
-  --domain graphql.plata.cool \
+  --domain example.com \
+  --domain sub.example.com \
   --authenticator standalone \
   --email $EMAIL \
   --agree-tos
